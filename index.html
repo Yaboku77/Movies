@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMDB API Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f2f2f2;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 200px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #codeBox {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 20px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        background-color: #fff;
+        word-break: break-all;
+      }
+
+      #copyButton {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #008CBA;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+
+      #copyButton:hover {
+        background-color: #006080;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Movie Details</h1>
+    <input type="text" id="movieId" placeholder="Enter Movie ID" />
+    <button onclick="searchMovie()">Search</button>
+    <div id="codeSnippet"></div>
+    <div id="codeBox"></div>
+    <button id="copyButton" onclick="copyCode()">Copy Code</button>
+    <script>
+      function searchMovie() {
+        const movieId = document.getElementById('movieId').value;
+        const apiUrl = `https://www.omdbapi.com/?i=${movieId}&apikey=dac89a00`;
+        fetch(apiUrl).then(response => response.json()).then(movieData => {
+          const code = generateCode(movieData);
+          document.getElementById('codeBox').textContent = code;
+        }).catch(error => {
+          console.log('Error:', error);
+        });
+      }
+
+      function generateCode(movieData) {
+        const code = `
+                
+				<div>
+					<a>
+						<img border="0" data-original-height="450" data-original-width="800" height="360" src="${movieData.Poster}" width="640" />
+					</a>
+				</div>
+				<div class="review_wrap">
+					<div class="review-box review-bottom review-percentage" id="review-box">
+						<h2 class="review-box-header the-global-title" id="title">${movieData.Title}</h2>
+						<div class="review-summary">
+							<div class="review-final-score">
+								<h3 id="imdbRating">${movieData.imdbRating}</h3>
+								<h4>Average Rating</h4>
+							</div>
+							<div class="review-short-summary">
+								<p id="plot">${movieData.Plot}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="toggle tie-sc-open">
+					<h3 class="toggle-head">
+                        Information 
+						<span class="fa fa-angle-down"></span>
+					</h3>
+					<div class="toggle-content">
+						<ul style="text-align: left;">
+							<li id="title-info">Title: ${movieData.Title}</li>
+							<li id="type">Type: ${movieData.Type}</li>
+							<li id="released">Released: ${movieData.Released}</li>
+							<li id="production">Production: ${movieData.Production}</li>
+							<li id="director">Director: ${movieData.Director}</li>
+							<li id="writer">Writer: ${movieData.Writer}</li>
+							<li id="runtime">Runtime: ${movieData.Runtime}</li>
+							<li id="language">Language: ${movieData.Language}</li>
+							<li id="country">Country: ${movieData.Country}</li>
+							<li id="rated">Rated: ${movieData.Rated}</li>
+							<li id="genres">Genres: ${movieData.Genre}</li>
+							<li id="imdbID-info">IMDB ID: ${movieData.imdbID}</li>
+						</ul>
+					</div>
+				</div>
+            `;
+        return code;
+      }
+
+      function copyCode() {
+        const codeBox = document.getElementById('codeBox');
+        const range = document.createRange();
+        range.selectNode(codeBox);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        alert('Code copied to clipboard!');
+      }
+    </script>
+  </body>
+  </html>
