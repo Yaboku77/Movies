@@ -13,7 +13,8 @@
                   <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' sizes='144x144'/>
                     <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='152x152'/>
                       <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='180x180'/>
-    <title>OMDB API Example</title>
+
+ <title>OMDB API Example</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -73,6 +74,81 @@
       #copyButton:hover {
         background-color: #006080;
       }
+
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        background-color: #0693e3;
+        background-image: linear-gradient(135deg, #0693e3, #9b51e0);
+      }
+
+      .button.small {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+
+      .button.blue {
+        background-color: #0693e3;
+        background-image: linear-gradient(135deg, #0693e3, #9b51e0);
+      }
+
+      .button.blue:hover {
+        background-color: #0573bf;
+        background-image: linear-gradient(135deg, #0573bf, #7c47ad);
+      }
+
+      .button-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .button-wrapper button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .button-wrapper button:first-child {
+        margin-right: 10px;
+      }
+
+      .button-wrapper button:hover {
+        background-color: #45a049;
+      }
+      
+      .button-inputs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      
+      .button-inputs input {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 200px;
+      }
+      
+      .added-buttons {
+        margin-top: 20px;
+      }
+      
+      .added-buttons button {
+        margin-right: 10px;
+      }
     </style>
   </head>
   <body>
@@ -82,75 +158,94 @@
     <div id="codeSnippet"></div>
     <div id="codeBox"></div>
     <button id="copyButton" onclick="copyCode()">Copy Code</button>
+    <button id="addButton" onclick="addButton()">Add Button</button>
     <script>
+      let buttons = [];
+
       function searchMovie() {
         const movieId = document.getElementById('movieId').value;
         const apiUrl = `https://www.omdbapi.com/?i=${movieId}&apikey=dac89a00`;
-        fetch(apiUrl).then(response => response.json()).then(movieData => {
-          const code = generateCode(movieData);
-          document.getElementById('codeBox').textContent = code;
-        }).catch(error => {
-          console.log('Error:', error);
-        });
+        fetch(apiUrl)
+          .then(response => response.json())
+          .then(movieData => {
+            const code = generateCode(movieData);
+            document.getElementById('codeBox').textContent = code;
+          })
+          .catch(error => {
+            console.log('Error:', error);
+          });
       }
 
       function generateCode(movieData) {
-        const code = `<div>
-	<a>
-	<img border="0" data-original-height="450" data-original-width="800" height="360" src="${movieData.Poster}" width="640" />
-					</a>
-				</div>
-				<div class="review_wrap">
-					<div class="review-box review-bottom review-percentage" id="review-box">
-						<h2 class="review-box-header the-global-title" id="title">${movieData.Title}</h2>
-						<div class="review-summary">
-							<div class="review-final-score">
-								<h3 id="imdbRating">${movieData.imdbRating}</h3>
-								<h4>Average Rating</h4>
-							</div>
-							<div class="review-short-summary">
-								<p id="plot">${movieData.Plot}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="toggle tie-sc-open">
-					<h3 class="toggle-head">
-                        Information 
-						<span class="fa fa-angle-down"></span>
-					</h3>
-					<div class="toggle-content">
-						<ul style="text-align: left;">
-							<li id="title-info">Title: ${movieData.Title}</li>
-							<li id="type">Type: ${movieData.Type}</li>
-							<li id="released">Released: ${movieData.Released}</li>
-							<li id="production">Production: ${movieData.Production}</li>
-							<li id="director">Director: ${movieData.Director}</li>
-							<li id="writer">Writer: ${movieData.Writer}</li>
-							<li id="runtime">Runtime: ${movieData.Runtime}</li>
-							<li id="language">Language: ${movieData.Language}</li>
-							<li id="country">Country: ${movieData.Country}</li>
-							<li id="rated">Rated: ${movieData.Rated}</li>
-							<li id="genres">Genres: ${movieData.Genre}</li>
-							<li id="imdbID-info">IMDB ID: ${movieData.imdbID}</li>
-						</ul>
-					</div>
-				</div>
-    <div class="toggle tie-sc-open">
-    <h3 class="toggle-head">
-      Google Drive <span aria-hidden="true" class="fa fa-angle-down"></span>
-    </h3>
-    <div class="toggle-content" style="text-align: center;">
-      <a class="shortc-button small blue" href="#" style="background: linear-gradient(135deg, rgb(6, 147, 227), rgb(155, 81, 224)) rgb(255, 255, 255);" target="_blank">480P</a>
-      <a class="shortc-button small blue" href="#" style="background: linear-gradient(135deg, rgb(6, 147, 227), rgb(155, 81, 224)) rgb(255, 255, 255);" target="_blank">720P</a>
-      <a class="shortc-button small blue" href="#" style="background: linear-gradient(135deg, rgb(6, 147, 227), rgb(155, 81, 224)) rgb(255, 255, 255);" target="_blank">1080P</a>
-      <a class="shortc-button small blue" href="#" style="background: linear-gradient(135deg, rgb(6, 147, 227), rgb(155, 81, 224)) rgb(255, 255, 255);" target="_blank">1080P ULTRA BD Remux</a>
-      <a class="shortc-button small blue" href="#" style="background: linear-gradient(135deg, rgb(6, 147, 227), rgb(155, 81, 224)) rgb(255, 255, 255);" target="_blank">Movies</a>
-      <a class="shortc-button small blue" href="#" style="background: linear-gradient(135deg, rgb(6, 147, 227), rgb(155, 81, 224)) rgb(255, 255, 255);" target="_blank">OVAs</a>
-    </div>
-  </div>
-            `;
+        let buttonsHTML = '';
+        for (const button of buttons) {
+          buttonsHTML += `<a href="${button.url}" class="shortc-button small blue" style="background: linear-gradient(135deg, rgb(6, 147, 227), rgb(155, 81, 224)) rgb(255, 255, 255);">${button.title}</a>`;
+        }
+
+        const code = `
+          <div>
+            <a>
+              <img border="0" data-original-height="450" data-original-width="800" height="360" src="${movieData.Poster}" width="640" />
+            </a>
+          </div>
+          <div class="review_wrap">
+            <div class="review-box review-bottom review-percentage" id="review-box">
+              <h2 class="review-box-header the-global-title">${movieData.Title}</h2>
+              <div class="review-summary">
+                <div class="review-final-score">
+                  <h3>${movieData.imdbRating}</h3>
+                  <h4>Average Rating</h4>
+                </div>
+                <div class="review-short-summary">
+                  <p>${movieData.Plot}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="toggle tie-sc-open">
+            <h3 class="toggle-head">
+              Information 
+              <span class="fa fa-angle-down"></span>
+            </h3>
+            <div class="toggle-content">
+              <ul style="text-align: left;">
+                <li>Title: ${movieData.Title}</li>
+                <li>Type: ${movieData.Type}</li>
+                <li>Released: ${movieData.Released}</li>
+                <li>Production: ${movieData.Production}</li>
+                <li>Director: ${movieData.Director}</li>
+                <li>Writer: ${movieData.Writer}</li>
+                <li>Runtime: ${movieData.Runtime}</li>
+                <li>Language: ${movieData.Language}</li>
+                <li>Country: ${movieData.Country}</li>
+                <li>Rated: ${movieData.Rated}</li>
+                <li>Genres: ${movieData.Genre}</li>
+                <li>IMDB ID: ${movieData.imdbID}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="toggle tie-sc-open">
+            <h3 class="toggle-head">
+              Google Drive <span aria-hidden="true" class="fa fa-angle-down"></span>
+            </h3>
+            <div class="toggle-content" style="text-align: center;">
+              ${buttonsHTML}
+            </div>
+          </div>
+        `;
+
         return code;
+      }
+
+      function addButton() {
+        const title = prompt('Enter button title:');
+        const url = prompt('Enter button URL:');
+
+        buttons.push({ title, url });
+
+        const codeBox = document.getElementById('codeBox');
+        const code = generateCode();
+        codeBox.textContent = code;
       }
 
       function copyCode() {
@@ -165,4 +260,6 @@
       }
     </script>
   </body>
-  </html>
+</html>
+
+	  
