@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <!--Meta Icon-->
-    <link expr:href='data:blog.homepageUrl + &quot;/favicon.ico&quot;' rel='icon' type='image/x-icon'/>
-      <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon'/>
-        <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='57x57'/>
-          <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='72x72'/>
-            <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='76x76'/>
-              <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='114x114'/>
-                <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='120x120'/>
-                  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' sizes='144x144'/>
-                    <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='152x152'/>
-                      <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='180x180'/>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Meta Icon-->
+  <link expr:href='data:blog.homepageUrl + &quot;/favicon.ico&quot;' rel='icon' type='image/x-icon'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='57x57'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='72x72'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='76x76'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='114x114'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='120x120'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' sizes='144x144'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='152x152'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='180x180'/>
 
   <title>TMDB API Code Generator</title>
   <style>
@@ -75,6 +75,20 @@
       background-color: #006080;
     }
 
+    #titleBox {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+
+    #genresBox {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+
     #addedButtons {
       margin-top: 20px;
     }
@@ -88,6 +102,8 @@
   <h1>TMDB API Code Generator</h1>
   <input type="text" id="movieId" placeholder="Enter Movie ID" />
   <button onclick="generateCode()">Generate Code</button>
+  <div id="titleBox"></div>
+  <div id="genresBox"></div>
   <div id="codeBox"></div>
   <button id="copyButton" onclick="copyCode()">Copy Code</button>
   <div id="addedButtons"></div>
@@ -159,10 +175,15 @@
       let buttonsHTML = '';
       for (const button of buttons) {
         buttonsHTML += `<a class="hover:cursor-pointer md:ml-10 md:mt-9 lg:ml-10 lg:mt-9 xl:ml-10 xl:mt-9 ml-5 mt-5" id="btn-grad" href="${button.url}">
-              <p class="text-sm font-semibold">${button.title}</p></a>`;
+          <p class="text-sm font-semibold">${button.title}</p></a>`;
       }
-      
-      
+
+      const titleBox = document.getElementById('titleBox');
+      titleBox.textContent = `${movie.title}`;
+
+      const genresBox = document.getElementById('genresBox');
+      const genres = movie.genres.map(genre => genre.name).join(', ');
+      genresBox.textContent = `${genres}`;
 
       const code = `
         <div class="bg-gray-800 rounded-lg md:m-9 md:mb-3 md:flex lg:m-9 lg:mb-3 lg:flex xl:m-9 xl:mb-3 xl:flex m-2 mb-3" id="info-holder">
@@ -185,7 +206,7 @@
             <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2 truncate">
               <p class="text-gray-400 text-sm mr-1">Genres:-</p>
               <p class="text-white text-sm" id="tags">
-                ${movie.genres.map(genre => genre.name).join(', ')}
+                ${genres}
               </p>
             </div>
             <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
@@ -231,8 +252,6 @@
             <iframe class="w-full h-full" src="https://www.youtube.com/embed/${trailerKey}"></iframe>
           </div>
         </div>
-
-        
       `;
 
       document.getElementById('codeBox').textContent = code;
@@ -264,5 +283,4 @@
     }
   </script>
 </body>
-    </html>
-    
+</html>
