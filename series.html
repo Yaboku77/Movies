@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Meta Icon-->
+  <link expr:href='data:blog.homepageUrl + &quot;/favicon.ico&quot;' rel='icon' type='image/x-icon'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='57x57'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='72x72'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='76x76'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='114x114'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='120x120'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' sizes='144x144'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='152x152'/>
+  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='180x180'/>
+
+  <title>TMDB API Code Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 200px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #codeBox {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 20px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      background-color: #fff;
+      word-break: break-all;
+    }
+
+    #copyButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #copyButton:hover {
+      background-color: #006080;
+    }
+
+    #titleBox {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+
+    #genresBox {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+
+    #addedButtons {
+      margin-top: 20px;
+    }
+
+    #addedButtons button {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>TMDB API Code Generator</h1>
+  <input type="text" id="seriesId" placeholder="Enter Series ID" />
+  <button onclick="generateCode()">Generate Code</button>
+  <div id="titleBox"></div>
+  <div id="genresBox"></div>
+  <div id="codeBox"></div>
+  <button id="copyButton" onclick="copyCode()">Copy Code</button>
+  <div id="addedButtons"></div>
+  <button onclick="addButton()">Add Button</button>
+  <script>
+    const buttons = [];
+
+    // Fetches series data from TMDB API for a specific series ID
+    const apiKey = '3dfa4bae246f35044e56a6dcd3294e3f';
+
+    // Function to fetch series details from TMDB API
+    async function fetchSeriesDetails(seriesId) {
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}?api_key=${apiKey}`);
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    // Function to fetch trailer key for a series from TMDB API
+    async function fetchTrailerKey(seriesId) {
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}/videos?api_key=${apiKey}`);
+        const data = await response.json();
+        const trailer = data.results.find(video => video.type === 'Trailer');
+        return trailer ? trailer.key : null;
+      } catch (error) {
+        console.error('Error:', error);
+        return null;
+      }
+    }
+
+    // Function to fetch genres for a series from TMDB API
+    async function fetchGenres(seriesId) {
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}?api_key=${apiKey}`);
+        const data = await response.json();
+        return data.genres.map(genre => genre.name).join(', ');
+      } catch (error) {
+        console.error('Error:', error);
+        return 'Not Available';
+      }
+    }
+
+    // Function to generate code from series details
+    async function generateCode() {
+      const seriesId = document.getElementById('seriesId').value;
+      const series = await fetchSeriesDetails(seriesId);
+      const trailerKey = await fetchTrailerKey(seriesId);
+      const genres = await fetchGenres(seriesId);
+
+      let buttonsHTML = '';
+      for (const button of buttons) {
+        buttonsHTML += `<a class="hover:cursor-pointer md:ml-10 md:mt-9 lg:ml-10 lg:mt-9 xl:ml-10 xl:mt-9 ml-5 mt-5" id="btn-grad" href="${button.url}">
+          <p class="text-sm font-semibold">${button.title}</p></a>`;
+      }
+
+      const titleBox = document.getElementById('titleBox');
+      titleBox.textContent = `${series.name}`;
+
+      const genresBox = document.getElementById('genresBox');
+      genresBox.textContent = `${genres}`;
+
+      const code = `
+        <div class="bg-gray-800 rounded-lg md:m-9 md:mb-3 md:flex lg:m-9 lg:mb-3 lg:flex xl:m-9 xl:mb-3 xl:flex m-2 mb-3" id="info-holder">
+          <div id="poster" class="mx-auto" style="height: 460px; min-width: 331px; max-width: 331px;">
+            <img alt="" class="md:rounded-l-lg md:block lg:block xl:block w-full h-full" src="https://image.tmdb.org/t/p/w500${series.poster_path}" alt="${series.name} Poster"/>
+          </div>
+
+          <a name='more'></a>
+
+          <div class="md:pt-0 lg:pt-0 xl:pt-0 pt-px">
+            <p style="font-size: 24px;" class="text-white font-semibold m-8 md:ml-10 lg:ml-10 xl:ml-10 ml-5 md:my-6 lg:my-6 xl:my-6 my-3 truncate">
+              ${series.name}
+            </p>
+            <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
+              <p class="text-white text-sm">
+                <span class="text-gray-400 text-sm mr-1">Sinopsis:-</span>
+                ${series.overview}
+              </p>
+            </div>
+            <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2 truncate">
+              <p class="text-gray-400 text-sm mr-1">Genres:-</p>
+              <p class="text-white text-sm" id="tags">
+                ${genres}
+              </p>
+            </div>
+            <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
+              <p class="text-gray-400 text-sm mr-1">First Air Date:-</p>
+              <p class="text-white text-sm">${series.first_air_date}</p>
+            </div>
+            <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
+              <p class="text-gray-400 text-sm mr-1">Rating:-</p>
+              <p class="text-white text-sm">${series.vote_average}</p>
+            </div>
+            
+            <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
+              <p class="text-gray-400 text-sm mr-1">Running Time:-</p>
+              <p class="text-white text-sm">${series.episode_run_time[0]} minutes</p>
+            </div>
+            <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
+              <p class="text-gray-400 text-sm mr-1">Number of Seasons:-</p>
+              <p class="text-white text-sm">${series.number_of_seasons}</p>
+            </div>
+            <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
+              <p class="text-gray-400 text-sm mr-1">Number of Episodes:-</p>
+              <p class="text-white text-sm">${series.number_of_episodes}</p>
+            </div>
+          </div>
+        </div>
+
+        <!--Download Links Here-->
+
+        <div id="watch" class="bg-gray-800 md:mx-9 lg:mx-9 xl:mx-9 mx-2 rounded-lg mb-4 md:p-5 lg:p-5 xl:p-5 p-3.5 pr-0">
+          <p class="text-white text-lg font-semibold ml-1 mb-4">Download Links</p>
+          <center>
+            ${buttonsHTML}
+          </center>
+        </div>
+
+        <!--Video Links Here-->
+
+        <div class="md:m-10 lg:m-10 xl:m-10 m-2 rounded-lg md:flex lg:flex xl:flex bg-gray-800">
+          <div class="bg-black h-vw-65 md:h-96 lg:h-112 xl:h-136 2xl:h-152 w-full relative">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/${trailerKey}?autoplay=1"></iframe>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('codeBox').textContent = code;
+    }
+
+    // Function to copy code to clipboard
+    function copyCode() {
+      const codeBox = document.getElementById('codeBox');
+      const range = document.createRange();
+      range.selectNode(codeBox);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+      alert('Code copied to clipboard!');
+    }
+
+    // Function to add a new button
+    function addButton() {
+      const title = prompt('Enter button title:');
+      const url = prompt('Enter button URL:');
+
+      buttons.push({ title, url });
+
+      const addedButtons = document.getElementById('addedButtons');
+      const button = document.createElement('button');
+      button.textContent = title;
+      addedButtons.appendChild(button);
+    }
+  </script>
+</body>
+</html>
