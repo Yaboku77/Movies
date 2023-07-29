@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="/src/style.css"/>
+  
+  
+  <!--Meta Icon-->
+  <link expr:href='data:blog.homepageUrl + &quot;/favicon.ico&quot;' rel='icon' type='image/x-icon'/>
+  <link href='https://www.themoviedb.org/assets/2/favicon-32x32-543a21832c8931d3494a68881f6afcafc58e96c5d324345377f3197a37b367b5.png' rel='apple-touch-icon'/>
+  <link href='https://www.themoviedb.org/assets/2/favicon-32x32-543a21832c8931d3494a68881f6afcafc58e96c5d324345377f3197a37b367b5.png' rel='apple-touch-icon' sizes='57x57'/>
+  <link href='https://www.themoviedb.org/assets/2/favicon-32x32-543a21832c8931d3494a68881f6afcafc58e96c5d324345377f3197a37b367b5.png' rel='apple-touch-icon' sizes='72x72'/>
+  <link href='https://www.themoviedb.org/assets/2/favicon-32x32-543a21832c8931d3494a68881f6afcafc58e96c5d324345377f3197a37b367b5.png' rel='apple-touch-icon' sizes='76x76'/>
+  <link href='https://www.themoviedb.org/assets/2/favicon-32x32-543a21832c8931d3494a68881f6afcafc58e96c5d324345377f3197a37b367b5.png' rel='apple-touch-icon' sizes='114x114'/>
+  <link href='https://www.themoviedb.org/assets/2/favicon-32x32-543a21832c8931d3494a68881f6afcafc58e96c5d324345377f3197a37b367b5.png' rel='apple-touch-icon' sizes='120x120'/>
+  <link href='https://www.themoviedb.org/assets/2/favicon-32x32-543a21832c8931d3494a68881f6afcafc58e96c5d324345377f3197a37b367b5.png' sizes='144x144'/>
+  <link href='https://www.themoviedb.org/assets/2/favicon-32x32-543a21832c8931d3494a68881f6afcafc58e96c5d324345377f3197a37b367b5.png' rel='apple-touch-icon' sizes='152x152'/>
+  <link href='https://www.themoviedb.org/assets/2/favicon-32x32-543a21832c8931d3494a68881f6afcafc58e96c5d324345377f3197a37b367b5.png' rel='apple-touch-icon' sizes='180x180'/>
+
+  <title>TMDB API Code Generator</title>
+ 
+</head>
+<body>
+  <h1>TMDB API Code Generator</h1>
+  <input type="text" id="movieId" placeholder="Enter Movie ID" />
+  <input type="text" id="seriesId" placeholder="Enter Series ID" />
+  <button onclick="generateCode()">Generate Code</button>
+  <div id="titleBox"></div>
+  <div id="genresBox"></div>
+  <div id="codeBox"></div>
+  <button id="copyButton" onclick="copyCode()">Copy Code</button>
+  <div id="addedButtons"></div>
+  <button onclick="addButton()">Add Button</button>
+  
+  
+  <script src="/src/script.js"></script>
+</body>
+    </html>
+  
+  
