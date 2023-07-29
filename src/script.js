@@ -223,6 +223,7 @@ const buttons = [];
               <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
                 <p class="text-gray-400 text-sm mr-1">Age Rating:-</p>
                 <p class="text-white text-sm">${series.ageRating}</p>
+              </div>
               <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
                 <p class="text-gray-400 text-sm mr-1">Number of Seasons:-</p>
                 <p class="text-white text-sm">${series.number_of_seasons}</p>
