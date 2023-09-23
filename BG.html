@@ -2,21 +2,23 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
   <!--Meta Icon-->
   <link expr:href='data:blog.homepageUrl + &quot;/favicon.ico&quot;' rel='icon' type='image/x-icon'/>
-  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon'/>
-  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='57x57'/>
-  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='72x72'/>
-  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='76x76'/>
-  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='114x114'/>
-  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='120x120'/>
-  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' sizes='144x144'/>
-  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='152x152'/>
-  <link href='https://i.ibb.co/3SYRk6S/IMG-20230713-072224.jpg' rel='apple-touch-icon' sizes='180x180'/>
+  <link href='/Movies/src/powered-by-tmdb.png' rel='apple-touch-icon'/>
+  <link href='/Movies/src/powered-by-tmdb.png' rel='apple-touch-icon' sizes='57x57'/>
+  <link href='/Movies/src/powered-by-tmdb.png' rel='apple-touch-icon' sizes='72x72'/>
+  <link href='/Movies/src/powered-by-tmdb.png' rel='apple-touch-icon' sizes='76x76'/>
+  <link href='/Movies/src/powered-by-tmdb.png' rel='apple-touch-icon' sizes='114x114'/>
+  <link href='/Movies/src/powered-by-tmdb.png' rel='apple-touch-icon' sizes='120x120'/>
+  <link href='/Movies/src/powered-by-tmdb.png' sizes='144x144'/>
+  <link href='/Movies/src/powered-by-tmdb.png' rel='apple-touch-icon' sizes='152x152'/>
+  <link href='/Movies/src/powered-by-tmdb.png' rel='apple-touch-icon' sizes='180x180'/>
 
   <title>TMDB API Code Generator</title>
-  <style>
-    body {
+ <style>
+     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
@@ -96,20 +98,26 @@
     #addedButtons button {
       margin-right: 10px;
     }
-  </style>
+ </style>
 </head>
 <body>
   <h1>TMDB API Code Generator</h1>
   <input type="text" id="movieId" placeholder="Enter Movie ID" />
+  <input type="text" id="seriesId" placeholder="Enter Series ID" />
   <button onclick="generateCode()">Generate Code</button>
   <div id="titleBox"></div>
   <div id="genresBox"></div>
-  <div id="codeBox"></div>
+
   <button id="copyButton" onclick="copyCode()">Copy Code</button>
   <div id="addedButtons"></div>
   <button onclick="addButton()">Add Button</button>
+  
+  <div id="codeBox"></div>
+  
+  
+  
   <script>
-    const buttons = [];
+      const buttons = [];
 
     // Fetches movie data from TMDB API for a specific movie ID
     const apiKey = '3dfa4bae246f35044e56a6dcd3294e3f';
@@ -124,6 +132,7 @@
         console.error('Error:', error);
       }
     }
+
 
     // Function to fetch series details from TMDB API
     async function fetchSeriesDetails(seriesId) {
@@ -199,78 +208,69 @@
         const genres = movie.genres.map(genre => genre.name).join(', ');
         genresBox.textContent = `${genres}`;
 
+
+const originalRating = movie.vote_average;
+const conrating2 = originalRating * 10;
+
+
         const code = `
-          <div class="bg-gray-800 rounded-lg md:m-9 md:mb-3 md:flex lg:m-9 lg:mb-3 lg:flex xl:m-9 xl:mb-3 xl:flex m-2 mb-3" id="info-holder">
-            <div id="poster" class="mx-auto" style="height: 460px; min-width: 331px; max-width: 331px;">
-              <img alt="" class="md:rounded-l-lg md:block lg:block xl:block w-full h-full" src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} Poster"/>
-            </div>
+          <div><a><img src="https://www.themoviedb.org/t/p/w1000_and_h563_face${movie.backdrop_path}" width="640" height="360" border="0" data-original-height="450" data-original-width="800" /></a></div>
+<div class="review_wrap">
+<div id="review-box" class="review-box review-bottom review-percentage">
+<h2 class="review-box-header the-global-title">${movie.title}</h2>
+<div class="review-item">
 
-            <a name='more'></a>
+<span><h5>TMDB - ${movie.vote_average}</h5>        <span data-width="${conrating2.toFixed(1)}" style="width: ${conrating2.toFixed(1)}%;"></span></span>
 
-            <div class="md:pt-0 lg:pt-0 xl:pt-0 pt-px">
-              <p style="font-size: 24px;" class="text-white font-semibold m-8 md:ml-10 lg:ml-10 xl:ml-10 ml-5 md:my-6 lg:my-6 xl:my-6 my-3 truncate">
-                ${movie.title}
-              </p>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-white text-sm">
-                  <span class="text-gray-400 text-sm mr-1">Sinopsis:-</span>
-                  ${movie.overview}
-                </p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2 truncate">
-                <p class="text-gray-400 text-sm mr-1">Genres:-</p>
-                <p class="text-white text-sm" id="tags">
-                  ${genres}
-                </p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Release Date:-</p>
-                <p class="text-white text-sm">${movie.release_date}</p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Rating:-</p>
-                <p class="text-white text-sm">${movie.vote_average}</p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Running Time:-</p>
-                <p class="text-white text-sm">${movie.runtime} minutes</p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Director:-</p>
-                <p class="text-white text-sm">${movie.director}</p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Status:-</p>
-                <p class="text-white text-sm">${movie.status}</p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Age Rating:-</p>
-                <p class="text-white text-sm">${movie.ageRating}</p>
-              </div>
-            </div>
-          </div>
+</div>
+<div class="review-summary">
+<div class="review-final-score">
+<h3>${movie.vote_average}</h3>
+<h4>Average Rating</h4>
+</div>
+<div class="review-short-summary">
 
-          <!--Download Links Here-->
+${movie.overview}
 
-          <div id="watch" class="bg-gray-800 md:mx-9 lg:mx-9 xl:mx-9 mx-2 rounded-lg mb-4 md:p-5 lg:p-5 xl:p-5 p-3.5 pr-0">
-            <p class="text-white text-lg font-semibold ml-1 mb-4">Download Links</p>
-            <center>
-              ${buttonsHTML}
-            </center>
-          </div>
+</div>
+</div>
+</div>
+</div>
+<div id="information" class="index-title" data-title="Information"></div>
+<div class="clearfix"></div>
+<div class="toggle tie-sc-open">
+<h3 class="toggle-head">Information</h3>
+<div class="toggle-content">
+<ul style="text-align: left;">
+ 	<li><strong>English</strong>: ${movie.title}</li>
+ 	<li><strong>Aired</strong>: ${movie.release_date}</li>
+ 	<li><strong>Status</strong>: ${movie.status}</li>
+ 	<li><strong>Revenue</strong>: ${movie.revenue}</li>
+ 	<li><strong>Producers</strong>: ${movie.production_companies.map(production_companies => production_companies.name).join(',')}</li>
+ 	<li><strong>Genres</strong>: ${movie.genres.map(genres => genres.name).join(',')}</li>
+ 	<li><strong>Duration</strong>: ${movie.runtime}min</li>
+ 	<li><strong>IMDB id</strong>: <a href="https://imdb.com/title/${movie.imdb_id}">${movie.imdb_id}</a></li>
+ 	<li><strong>TMDB id</strong>: <a href="https://www.themoviedb.org/movie/${movie.id}">${movie.id}</a></li>
+ 	<li><strong>Org. Language</strong>: ${movie.original_language}</li>
+ 	<li><strong>Production Countries</strong>: ${movie.production_countries.map(production_countries => production_countries.name).join(',')}</li>
+</ul>
+</div>
+</div>
 
-          <!--Video Links Here-->
-
-          <div class="md:m-10 lg:m-10 xl:m-10 m-2 rounded-lg md:flex lg:flex xl:flex bg-gray-800">
-            <div class="bg-black h-vw-65 md:h-96 lg:h-112 xl:h-136 2xl:h-152 w-full relative">
-              <iframe class="w-full h-full" src="https://www.youtube.com/embed/${trailerKey}"></iframe>
-            </div>
-          </div>
+<div class="toggle tie-sc-open">
+<h3 class="toggle-head">Google Drive</h3>
+<div class="toggle-content">
+<div style="text-align: center;">
+    ${buttonsHTML}
+</div>
+</div>
+</div>
         `;
 
         document.getElementById('codeBox').textContent = code;
       } else if (seriesId) {
         const series = await fetchSeriesDetails(seriesId);
+        const trailerKey = await fetchTrailerKey(seriesId);
 
         let buttonsHTML = '';
         for (const button of buttons) {
@@ -284,82 +284,63 @@
         const genresBox = document.getElementById('genresBox');
         const genres = series.genres.map(genre => genre.name).join(', ');
         genresBox.textContent = `${genres}`;
+        
+const originalRating = series.vote_average;
+const conrating = originalRating * 10;
+        
 
         const code = `
-          <div class="bg-gray-800 rounded-lg md:m-9 md:mb-3 md:flex lg:m-9 lg:mb-3 lg:flex xl:m-9 xl:mb-3 xl:flex m-2 mb-3" id="info-holder">
-            <div id="poster" class="mx-auto" style="height: 460px; min-width: 331px; max-width: 331px;">
-              <img alt="" class="md:rounded-l-lg md:block lg:block xl:block w-full h-full" src="https://image.tmdb.org/t/p/w500${series.poster_path}" alt="${series.name} Poster"/>
-            </div>
+          <div><a><img src="https://www.themoviedb.org/t/p/w1000_and_h563_face${series.backdrop_path}" width="640" height="360" border="0" data-original-height="450" data-original-width="800" /></a></div>
+<div class="review_wrap">
+<div id="review-box" class="review-box review-bottom review-percentage">
+<h2 class="review-box-header the-global-title">${series.name}</h2>
+<div class="review-item">
 
-            <a name='more'></a>
+<span><h5>TMDB - ${series.vote_average}</h5>        <span data-width="${conrating.toFixed(1)}" style="width: ${conrating.toFixed(1)}%;"></span></span>
 
-            <div class="md:pt-0 lg:pt-0 xl:pt-0 pt-px">
-              <p style="font-size: 24px;" class="text-white font-semibold m-8 md:ml-10 lg:ml-10 xl:ml-10 ml-5 md:my-6 lg:my-6 xl:my-6 my-3 truncate">
-                ${series.name}
-              </p>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-white text-sm">
-                  <span class="text-gray-400 text-sm mr-1">Sinopsis:-</span>
-                  ${series.overview}
-                </p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2 truncate">
-                <p class="text-gray-400 text-sm mr-1">Genres:-</p>
-                <p class="text-white text-sm" id="tags">
-                  ${genres}
-                </p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">First Air Date:-</p>
-                <p class="text-white text-sm">${series.first_air_date}</p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Rating:-</p>
-                <p class="text-white text-sm">${series.vote_average}</p>
-              </div>
-              
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Running Time:-</p>
-                <p class="text-white text-sm">${series.runtime} minutes</p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Director:-</p>
-                <p class="text-white text-sm">${series.director}</p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Status:-</p>
-                <p class="text-white text-sm">${series.status}</p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Age Rating:-</p>
-                <p class="text-white text-sm">${series.ageRating}</p>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Number of Seasons:-</p>
-                <p class="text-white text-sm">${series.number_of_seasons}</p>
-              </div>
-              <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
-                <p class="text-gray-400 text-sm mr-1">Number of Episodes:-</p>
-                <p class="text-white text-sm">${series.number_of_episodes}</p>
-              </div>
-            </div>
-          </div>
+</div>
+<div class="review-summary">
+<div class="review-final-score">
+<h3>${series.vote_average}</h3>
+<h4>Average Rating</h4>
+</div>
+<div class="review-short-summary">
 
-          <!--Download Links Here-->
+${series.overview}
 
-          <div id="watch" class="bg-gray-800 md:mx-9 lg:mx-9 xl:mx-9 mx-2 rounded-lg mb-4 md:p-5 lg:p-5 xl:p-5 p-3.5 pr-0">
-            <p class="text-white text-lg font-semibold ml-1 mb-4">Download Links</p>
-            <center>
-              ${buttonsHTML}
-            </center>
-          </div>
+</div>
+</div>
+</div>
+</div>
+<div id="information" class="index-title" data-title="Information"></div>
+<div class="clearfix"></div>
+<div class="toggle tie-sc-open">
+<h3 class="toggle-head">Information</h3>
+<div class="toggle-content">
+<ul style="text-align: left;">
+ 	<li><strong>English</strong>: ${series.name}</li>
+ 	<li><strong>Aired</strong>: ${series.first_air_date} to ${series.last_air_date}</li>
+ 	<li><strong>Episodes</strong>: ${series.number_of_episodes}</li>
+ 	<li><strong>Status</strong>: ${series.status}</li>
+ 	<li><strong>Seasons</strong>: ${series.number_of_seasons}</li>
+ 	<li><strong>Producers</strong>: ${series.production_companies.map(production_companies => production_companies.name).join(',')}</li>
+ 	<li><strong>Genres</strong>: ${series.genres.map(genres => genres.name).join(',')}</li>
+ 	<li><strong>Duration</strong>: ${series.episode_run_time}min</li>
+ 	<li><strong>Networks</strong>: ${series.networks.map(networks => networks.name).join(',')}</li>
+ 	<li><strong>Org. Language</strong>: ${series.original_language}</li>
+ 	<li><strong>Production Countries</strong>: ${series.production_countries.map(production_countries => production_countries.name).join(',')}</li>
+</ul>
+</div>
+</div>
 
-          <!--Video Links Here-->
-
-          <div class="md:m-10 lg:m-10 xl:m-10 m-2 rounded-lg md:flex lg:flex xl:flex bg-gray-800">
-            <div class="bg-black h-vw-65 md:h-96 lg:h-112 xl:h-136 2xl:h-152 w-full relative">
-              <iframe class="w-full h-full" src="https://www.youtube.com/embed/${trailerKey}"></iframe>
-            </div>
-          </div>
+<div class="toggle tie-sc-open">
+<h3 class="toggle-head">Google Drive</h3>
+<div class="toggle-content">
+<div style="text-align: center;">
+    ${buttonsHTML}
+</div>
+</div>
+</div>
         `;
 
         document.getElementById('codeBox').textContent = code;
@@ -389,8 +370,11 @@
       const button = document.createElement('button');
       button.textContent = title;
       addedButtons.appendChild(button);
-    }
+}
+                      
   </script>
 </body>
     </html>
+  
+
   
