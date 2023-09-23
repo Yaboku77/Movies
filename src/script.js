@@ -214,7 +214,7 @@ const buttons = [];
               </div>
               <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
                 <p class="text-gray-400 text-sm mr-1">Director:-</p>
-                <p class="text-white text-sm">${created_by}</p>
+                <p class="text-white text-sm">${series.created_by.name}</p>
               </div>
               <div class="flex md:mx-10 lg:mx-10 xl:mx-10 mx-5 mb-2">
                 <p class="text-gray-400 text-sm mr-1">Status:-</p>
