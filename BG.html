@@ -240,20 +240,18 @@ ${movie.overview}
 <div class="clearfix"></div>
 <div class="toggle tie-sc-open">
 <h3 class="toggle-head">Information</h3>
-<div class="toggle-content">
-<ul style="text-align: left;">
- 	<li><strong>English</strong>: ${movie.title}</li>
- 	<li><strong>Aired</strong>: ${movie.release_date}</li>
- 	<li><strong>Status</strong>: ${movie.status}</li>
- 	<li><strong>Revenue</strong>: ${movie.revenue}</li>
- 	<li><strong>Producers</strong>: ${movie.production_companies.map(production_companies => production_companies.name).join(',')}</li>
- 	<li><strong>Genres</strong>: ${movie.genres.map(genres => genres.name).join(',')}</li>
- 	<li><strong>Duration</strong>: ${movie.runtime}min</li>
- 	<li><strong>IMDB id</strong>: <a href="https://imdb.com/title/${movie.imdb_id}">${movie.imdb_id}</a></li>
- 	<li><strong>TMDB id</strong>: <a href="https://www.themoviedb.org/movie/${movie.id}">${movie.id}</a></li>
- 	<li><strong>Org. Language</strong>: ${movie.original_language}</li>
- 	<li><strong>Production Countries</strong>: ${movie.production_countries.map(production_countries => production_countries.name).join(',')}</li>
-</ul>
+<div class="toggle-content" style="text-align: left;">
+ 	<strong>English</strong>: ${movie.title}<br />
+ 	<strong>Aired</strong>: ${movie.release_date}<br />
+ 	<strong>Status</strong>: ${movie.status}<br />
+ 	<strong>Revenue</strong>: ${movie.revenue}<br />
+ 	<strong>Producers</strong>: ${movie.production_companies.map(production_companies => production_companies.name).join(',')}<br />
+ 	<strong>Genres</strong>: ${movie.genres.map(genres => genres.name).join(',')}<br />
+ 	<strong>Duration</strong>: ${movie.runtime}min<br />
+ 	<strong>IMDB id</strong>: <a href="https://imdb.com/title/${movie.imdb_id}">${movie.imdb_id}</a><br />
+ 	<strong>TMDB id</strong>: <a href="https://www.themoviedb.org/movie/${movie.id}">${movie.id}</a><br />
+ 	<strong>Org. Language</strong>: ${movie.original_language}<br />
+ 	<strong>Production Countries</strong>: ${movie.production_countries.map(production_countries => production_countries.name).join(',')}<br />
 </div>
 </div>
 
@@ -316,20 +314,18 @@ ${series.overview}
 <div class="clearfix"></div>
 <div class="toggle tie-sc-open">
 <h3 class="toggle-head">Information</h3>
-<div class="toggle-content">
-<ul style="text-align: left;">
- 	<li><strong>English</strong>: ${series.name}</li>
- 	<li><strong>Aired</strong>: ${series.first_air_date} to ${series.last_air_date}</li>
- 	<li><strong>Episodes</strong>: ${series.number_of_episodes}</li>
- 	<li><strong>Status</strong>: ${series.status}</li>
- 	<li><strong>Seasons</strong>: ${series.number_of_seasons}</li>
- 	<li><strong>Producers</strong>: ${series.production_companies.map(production_companies => production_companies.name).join(',')}</li>
- 	<li><strong>Genres</strong>: ${series.genres.map(genres => genres.name).join(',')}</li>
- 	<li><strong>Duration</strong>: ${series.episode_run_time}min</li>
- 	<li><strong>Networks</strong>: ${series.networks.map(networks => networks.name).join(',')}</li>
- 	<li><strong>Org. Language</strong>: ${series.original_language}</li>
- 	<li><strong>Production Countries</strong>: ${series.production_countries.map(production_countries => production_countries.name).join(',')}</li>
-</ul>
+<div class="toggle-content" style="text-align: left;">
+ 	<strong>English</strong>: ${series.name}<br />
+ 	<strong>Aired</strong>: ${series.first_air_date} to ${series.last_air_date}<br />
+ 	<strong>Episodes</strong>: ${series.number_of_episodes}<br />
+ 	<strong>Status</strong>: ${series.status}</li>
+ 	<strong>Seasons</strong>: ${series.number_of_seasons}<br />
+ 	<strong>Producers</strong>: ${series.production_companies.map(production_companies => production_companies.name).join(',')}<br />
+ 	<strong>Genres</strong>: ${series.genres.map(genres => genres.name).join(',')}<br />
+ 	<strong>Duration</strong>: ${series.episode_run_time}min</li>
+ 	<strong>Networks</strong>: ${series.networks.map(networks => networks.name).join(',')}<br />
+ 	<strong>Org. Language</strong>: ${series.original_language}<br />
+ 	<strong>Production Countries</strong>: ${series.production_countries.map(production_countries => production_countries.name).join(',')}<br />
 </div>
 </div>
 
