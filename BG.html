@@ -197,8 +197,7 @@
 
         let buttonsHTML = '';
         for (const button of buttons) {
-          buttonsHTML += `<a class="hover:cursor-pointer md:ml-10 md:mt-9 lg:ml-10 lg:mt-9 xl:ml-10 xl:mt-9 ml-5 mt-5" id="btn-grad" href="${button.url}">
-            <p class="text-sm font-semibold">${button.title}</p></a>`;
+          buttonsHTML += `<a class="shortc-button small blue" href="${button.url}">${button.title}</a>`;
         }
 
         const titleBox = document.getElementById('titleBox');
@@ -272,8 +271,7 @@ ${movie.overview}
 
         let buttonsHTML = '';
         for (const button of buttons) {
-          buttonsHTML += `<a class="hover:cursor-pointer md:ml-10 md:mt-9 lg:ml-10 lg:mt-9 xl:ml-10 xl:mt-9 ml-5 mt-5" id="btn-grad" href="${button.url}">
-            <p class="text-sm font-semibold">${button.title}</p></a>`;
+          buttonsHTML += `<a class="shortc-button small blue" href="${button.url}">${button.title}</a>`;
         }
 
         const titleBox = document.getElementById('titleBox');
