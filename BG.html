@@ -235,10 +235,8 @@ ${movie.overview}
 </div>
 </div>
 </div>
-<div id="information" class="index-title" data-title="Information"></div>
-<div class="clearfix"></div>
 <div class="toggle tie-sc-open">
-<h3 class="toggle-head">Information</h3>
+<h3 class="toggle-head">Information <span class="fa fa-angle-down"></span></h3>
 <div class="toggle-content" style="text-align: left;">
  	<strong>English</strong>: ${movie.title}<br />
  	<strong>Aired</strong>: ${movie.release_date}<br />
@@ -255,7 +253,7 @@ ${movie.overview}
 </div>
 
 <div class="toggle tie-sc-open">
-<h3 class="toggle-head">Google Drive</h3>
+<h3 class="toggle-head">Google Drive <span class="fa fa-angle-down"></span></h3>
 <div class="toggle-content">
 <div style="text-align: center;">
     ${buttonsHTML}
@@ -308,10 +306,8 @@ ${series.overview}
 </div>
 </div>
 </div>
-<div id="information" class="index-title" data-title="Information"></div>
-<div class="clearfix"></div>
 <div class="toggle tie-sc-open">
-<h3 class="toggle-head">Information</h3>
+<h3 class="toggle-head">Information <span class="fa fa-angle-down"></span></h3>
 <div class="toggle-content" style="text-align: left;">
  	<strong>English</strong>: ${series.name}<br />
  	<strong>Aired</strong>: ${series.first_air_date} to ${series.last_air_date}<br />
@@ -320,7 +316,7 @@ ${series.overview}
  	<strong>Seasons</strong>: ${series.number_of_seasons}<br />
  	<strong>Producers</strong>: ${series.production_companies.map(production_companies => production_companies.name).join(',')}<br />
  	<strong>Genres</strong>: ${series.genres.map(genres => genres.name).join(',')}<br />
- 	<strong>Duration</strong>: ${series.episode_run_time}min</li>
+ 	<strong>Duration</strong>: ${series.episode_run_time}min<br />
  	<strong>Networks</strong>: ${series.networks.map(networks => networks.name).join(',')}<br />
  	<strong>Org. Language</strong>: ${series.original_language}<br />
  	<strong>Production Countries</strong>: ${series.production_countries.map(production_countries => production_countries.name).join(',')}<br />
@@ -328,7 +324,7 @@ ${series.overview}
 </div>
 
 <div class="toggle tie-sc-open">
-<h3 class="toggle-head">Google Drive</h3>
+<h3 class="toggle-head">Google Drive <span class="fa fa-angle-down"></span></h3>
 <div class="toggle-content">
 <div style="text-align: center;">
     ${buttonsHTML}
