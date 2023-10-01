@@ -219,12 +219,12 @@ const conrating2 = originalRating * 10;
 <h2 class="review-box-header the-global-title">${movie.title}</h2>
 <div class="review-item">
 
-<span><h5>TMDB - ${movie.vote_average}</h5>        <span data-width="${conrating2.toFixed(1)}" style="width: ${conrating2.toFixed(1)}%;"></span></span>
+<span><h5>TMDB - ${movie.vote_average.toFixed(1)}</h5>        <span data-width="${conrating2.toFixed(1)}" style="width: ${conrating2.toFixed(1)}%;"></span></span>
 
 </div>
 <div class="review-summary">
 <div class="review-final-score">
-<h3>${movie.vote_average}</h3>
+<h3>${movie.vote_average.toFixed(1)}</h3>
 <h4>Average Rating</h4>
 </div>
 <div class="review-short-summary">
